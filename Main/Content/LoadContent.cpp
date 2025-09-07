@@ -4,11 +4,11 @@ void LoadContent::OnInit()
 {
 	ballRight.xPos = 1;					// 1
 	ballRight.yPos = 1;					// 1
-	ballRight.shape = "¡Ü";
+	ballRight.shape = "ï¿½ï¿½";
 
 	ballLeft.xPos = GAME_SIZE_X - 1;	// 39
 	ballLeft.yPos = GAME_SIZE_Y - 2;	// 23
-	ballLeft.shape = "¡Ü";
+	ballLeft.shape = "ï¿½ï¿½";
 
 	rotateRight = 1;
 	rotateLeft = -1;
@@ -38,7 +38,7 @@ void LoadContent::OnUpdate()
 		ballRight.xPos += rotateRight;
 		ballLeft.xPos += rotateLeft;
 
-		// À§ÂÊ °ø
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		if (ballRight.xPos > GAME_SIZE_X - 1)
 		{
 			ballRight.xPos = GAME_SIZE_X - 1;
@@ -53,7 +53,7 @@ void LoadContent::OnUpdate()
 			rotateRight *= -1;
 		}
 
-		// ¾Æ·¡ÂÊ °ø
+		// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½
 		if (ballLeft.xPos > GAME_SIZE_X - 1)
 		{
 			ballLeft.xPos = GAME_SIZE_X - 1;
@@ -77,15 +77,15 @@ void LoadContent::OnUpdate()
 void LoadContent::OnRender()
 {
 
-	SCREEN->OnDraw(3, 3, "·ÎµùSCENE ±¸ÇöÀ» ¿Ï·áÇÏ¿´½À´Ï´Ù.");
-	SCREEN->OnDraw(20, 20, "´õ¹Ì µ¥ÀÌÅÍ·Î ³Ñ¾î°¥°Å¿¡¿ä");
+	SCREEN->OnDraw(3, 3, "ï¿½Îµï¿½SCENE ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+	SCREEN->OnDraw(20, 20, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½Ñ¾î°¥ï¿½Å¿ï¿½ï¿½ï¿½");
 
 	for (int y = 0; y < GAME_SIZE_Y; y++) 
 	{
 		for (int x = 0 ;x < GAME_SIZE_X;x++)
 		{
 			if (curtain[y][x] == true)
-				SCREEN->OnDrawColor(x * 2, y, "¡á", SKYBLUE);
+				SCREEN->OnDrawColor(x * 2, y, "ï¿½ï¿½", SKYBLUE);
 		}
 	}
 
