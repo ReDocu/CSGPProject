@@ -6,6 +6,16 @@ void SceneManager::OnInit()
 
 void SceneManager::OnRelease()
 {
+	if (curContent != nullptr)
+	{
+		curContent->OnRelease();
+		curContent = nullptr;
+	}
+
+	for (auto& content : contentMap)
+		delete content.second;
+
+	contentMap.clear();
 }
 
 void SceneManager::AddContent(int key, IContent* content)

@@ -1,11 +1,11 @@
 #include "TimerManager.h"
 #include <Windows.h>
-#include <time.h>
 
 void TimerManager::OnInit()
 {
 	startTime = GetTickCount64();
 	contentTime = GetTickCount64();
+	frameTime = GetTickCount64();
 }
 
 void TimerManager::OnRelease()
@@ -29,7 +29,7 @@ bool TimerManager::GetTickTimer(float timer)
 	int check = 0;
 	if (timerMap.find(timer) != timerMap.end())
 	{
-		if ((double)(GetTickCount64() - timerMap[timer]) / CLOCKS_PER_SEC > timer)
+		if ((double)(GetTickCount64() - timerMap[timer]) / 1000.0 > timer)
 		{
 			timerMap[timer] = GetTickCount64();
 			return true;
@@ -45,22 +45,20 @@ bool TimerManager::GetTickTimer(float timer)
 
 float TimerManager::GetProgramTime()
 {
-	return (float)(GetTickCount64() - startTime) / CLOCKS_PER_SEC;
+	return (float)(GetTickCount64() - startTime) / 1000.0f;
 }
 
 float TimerManager::GetContentTime()
 {
-	return (float)(GetTickCount64() - contentTime) / CLOCKS_PER_SEC;
+	return (float)(GetTickCount64() - contentTime) / 1000.0f;
 }
 
 void TimerManager::SetFrame(float frame)
 {
-	
-	unsigned long long start = GetTickCount64();
+	unsigned long long elapsed = GetTickCount64() - frameTime;
 
-	while (true)
-	{
-		if (GetTickCount64() - start >= frame)
-			return;
-	}
+	if ((float)elapsed < frame)
+		Sleep((DWORD)(frame - (float)elapsed));
+
+	frameTime = GetTickCount64();
 }

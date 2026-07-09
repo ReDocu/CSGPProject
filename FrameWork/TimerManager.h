@@ -6,6 +6,7 @@ class TimerManager : public singleton<TimerManager>
 {
 private:
 
+	unsigned long long frameTime = 0;
 	unsigned long long startTime = 0;	// 프로그램을 시작시킨 시작시간 확인
 	unsigned long long contentTime = 0;	// 게임을 시작시킨 시작시작 확인
 

@@ -19,13 +19,14 @@ int main() {
 	{
 		SCREEN->ClearBuffer();
 
+		// Update 내용
+		main->OnUpdate();
+
+		// ESC: scene did not consume it (e.g. title) -> quit program
 		if (INPUT->OnKeyDown(VK_ESCAPE))
 		{
 			break;
 		}
-
-		// Update 내용
-		main->OnUpdate();
 
 		// Render 내용
 		main->OnRender();
@@ -33,7 +34,7 @@ int main() {
 		SCREEN->FlippingBuffer();
 
 		// 1초에 60 프레임
-		TIMER->SetFrame(1000 / 60);
+		TIMER->SetFrame(1000.0f / 60.0f);
 	}
 	main->OnRelease();
 	delete main;

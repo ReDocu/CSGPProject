@@ -138,6 +138,10 @@
     <ClCompile Include="Main\MainContent.cpp" />
     <ClCompile Include="Main\Content\TitleContent.cpp" />
     <ClCompile Include="Main\Content\SnakeContent.cpp" />
+    <ClCompile Include="Main\Content\TetrisContent.cpp" />
+    <ClCompile Include="Main\Content\DinoContent.cpp" />
+    <ClCompile Include="Main\Content\RoadFighterContent.cpp" />
+    <ClCompile Include="Main\Content\MazeContent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -153,6 +157,10 @@
     <ClInclude Include="Main\MainContent.h" />
     <ClInclude Include="Main\Content\TitleContent.h" />
     <ClInclude Include="Main\Content\SnakeContent.h" />
+    <ClInclude Include="Main\Content\TetrisContent.h" />
+    <ClInclude Include="Main\Content\DinoContent.h" />
+    <ClInclude Include="Main\Content\RoadFighterContent.h" />
+    <ClInclude Include="Main\Content\MazeContent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -45,5 +45,9 @@ enum class _ECONTENT {
 	INTRO,
 	TITLE,
 	LOAD,
-	SNAKE
+	SNAKE,
+	TETRIS,
+	DINO,
+	ROADFIGHTER,
+	MAZE
 };

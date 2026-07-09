@@ -84,6 +84,9 @@ private:
 	unsigned short wallPosX = 1;
 	unsigned short wallPosY = 1;
 
+	static const int SPAWN_X = 5;
+	static const int SPAWN_Y = 5;
+
 
 	// Title 코드
 	_ESELECT select;
@@ -112,6 +115,7 @@ private:
 
 	// 현재 플레이어 방향
 	_EDIRECT direct;
+	_EDIRECT lastDirect = _EDIRECT::NONE;
 
 public:
 	virtual void OnInit();

@@ -8,7 +8,7 @@ void ScreenManager::OnInit()
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &buff);
 
 	defaultTextColor = buff.wAttributes & 0xf;	// 텍스트 색상 가져오기
-	defaultBGColor = buff.wAttributes & 0xf0;	// 배경 색상 가져오기
+	defaultBGColor = (buff.wAttributes & 0xf0) >> 4;	// 배경 색상 가져오기
 
 	CreateBuffer();
 }
@@ -56,10 +56,10 @@ void ScreenManager::CreateBuffer()
 	COORD size = { SCREEN_SIZE_X , SCREEN_SIZE_Y };
 	CONSOLE_CURSOR_INFO cci;
 	SMALL_RECT rect;
-	rect.Bottom = 0;
+	rect.Top = 0;
 	rect.Left = 0;
 	rect.Right = SCREEN_SIZE_X - 1;
-	rect.Top = SCREEN_SIZE_Y - 1;
+	rect.Bottom = SCREEN_SIZE_Y - 1;
 
 	// Double Buffering
 	// Screen Buffer Setting
@@ -88,6 +88,7 @@ void ScreenManager::ClearBuffer()
 	COORD Coor = { 0,0 };
 	DWORD dw;
 	FillConsoleOutputCharacter(hBuffer[nScreenIndex], ' ', SCREEN_SIZE_X * SCREEN_SIZE_Y, Coor, &dw);
+	FillConsoleOutputAttribute(hBuffer[nScreenIndex], (WORD)((defaultBGColor << 4) | defaultTextColor), SCREEN_SIZE_X * SCREEN_SIZE_Y, Coor, &dw);
 }
 
 void ScreenManager::FlippingBuffer()

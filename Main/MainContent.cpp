@@ -5,6 +5,10 @@
 #include "Content/TitleContent.h"
 #include "Content/LoadContent.h"
 #include "Content/SnakeContent.h"
+#include "Content/TetrisContent.h"
+#include "Content/DinoContent.h"
+#include "Content/RoadFighterContent.h"
+#include "Content/MazeContent.h"
 
 void MainContent::OnInit()
 {
@@ -13,9 +17,13 @@ void MainContent::OnInit()
 	SCENE->AddContent((int)_ECONTENT::TITLE, new TitleContent());
 	SCENE->AddContent((int)_ECONTENT::LOAD, new LoadContent());
 	SCENE->AddContent((int)_ECONTENT::SNAKE, new SnakeContent());
+	SCENE->AddContent((int)_ECONTENT::TETRIS, new TetrisContent());
+	SCENE->AddContent((int)_ECONTENT::DINO, new DinoContent());
+	SCENE->AddContent((int)_ECONTENT::ROADFIGHTER, new RoadFighterContent());
+	SCENE->AddContent((int)_ECONTENT::MAZE, new MazeContent());
 
 	// 콘텐츠를 변경한다.
-	SCENE->ChangeContent((int)_ECONTENT::SNAKE);
+	SCENE->ChangeContent((int)_ECONTENT::MAZE);
 }
 
 void MainContent::OnUpdate()
@@ -24,7 +32,7 @@ void MainContent::OnUpdate()
 	//if(INPUT->OnKeyDown('Z'))
 	//	SCENE->ChangeContent((int)_ECONTENT::INTRO);
 	//if(INPUT->OnKeyDown('X'))
-	//	SCENE->ChangeContent((int)_ECONTENT::TITLE);
+	//	SCENE->ChangeContent((int)_ECONTENT::TETRIS);
 
 
 	// 현재 실행중인 컨텐츠의 업데이트를 불러온다.

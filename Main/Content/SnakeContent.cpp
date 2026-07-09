@@ -123,19 +123,23 @@ void SnakeContent::OnInGameUpdate()
 
 	if (INPUT->OnKeyDown(VK_RIGHT))
 	{
-		direct = _EDIRECT::RIGHT;
+		if (lastDirect != _EDIRECT::LEFT || snake.size() == 1)
+			direct = _EDIRECT::RIGHT;
 	}
 	if (INPUT->OnKeyDown(VK_LEFT))
 	{
-		direct = _EDIRECT::LEFT;
+		if (lastDirect != _EDIRECT::RIGHT || snake.size() == 1)
+			direct = _EDIRECT::LEFT;
 	}
 	if (INPUT->OnKeyDown(VK_UP))
 	{
-		direct = _EDIRECT::UP;
+		if (lastDirect != _EDIRECT::DOWN || snake.size() == 1)
+			direct = _EDIRECT::UP;
 	}
 	if (INPUT->OnKeyDown(VK_DOWN))
 	{
-		direct = _EDIRECT::DOWN;
+		if (lastDirect != _EDIRECT::UP || snake.size() == 1)
+			direct = _EDIRECT::DOWN;
 	}
 
 	if (TIMER->GetTickTimer(0.1f))
@@ -166,6 +170,7 @@ void SnakeContent::OnInGameUpdate()
 
 		// 움직임 제어
 		MoveSnake();
+		lastDirect = direct;
 
 		for (itemListIter = itemList.begin(); itemListIter != itemList.end(); itemListIter++)
 		{
@@ -214,6 +219,17 @@ void SnakeContent::OnInGameUpdate()
 		}
 
 
+		for (snakeIter = snake.begin() + 1; snakeIter != snake.end(); snakeIter++)
+		{
+			if ((*snakeIter)->xPos == (*snake.begin())->xPos &&
+				(*snakeIter)->yPos == (*snake.begin())->yPos)
+			{
+				SnakeInit();
+				life--;
+				break;
+			}
+		}
+
 		if (
 			(*snake.begin())->xPos <= wallPosX || (*snake.begin())->yPos <= wallPosY || 
 			(*snake.begin())->xPos >= WALL_X - 1 - wallPosX ||
@@ -225,7 +241,7 @@ void SnakeContent::OnInGameUpdate()
 
 	}
 
-	if (life == 0)
+	if (life <= 0)
 	{
 		currentPhase = _EPhase::TITLE;
 	}
@@ -297,10 +313,11 @@ void SnakeContent::SnakeInit()
 	}
 	snake.clear();
 
-	Snake* head = new Snake(5, 5, "■", GREEN);
+	Snake* head = new Snake(SPAWN_X, SPAWN_Y, "■", GREEN);
 	snake.push_back(head);
 
 	direct = _EDIRECT::NONE;
+	lastDirect = _EDIRECT::NONE;
 }
 
 void SnakeContent::ItemInit(int itemCount)
@@ -407,9 +424,16 @@ void SnakeContent::MoveItem(Item* item)
 	item->xPos = 2 + rand() % 20;
 	item->yPos = 2 + rand() % 20;
 
+	while (item->xPos == SPAWN_X && item->yPos == SPAWN_Y)
+	{
+		item->xPos = 2 + rand() % 20;
+		item->yPos = 2 + rand() % 20;
+	}
+
 	for (trapListIter = trapList.begin(); trapListIter != trapList.end(); trapListIter++)
 	{
-		while (item->xPos == (*trapListIter)->xPos && item->yPos == (*trapListIter)->yPos)
+		while ((item->xPos == (*trapListIter)->xPos && item->yPos == (*trapListIter)->yPos) ||
+			(item->xPos == SPAWN_X && item->yPos == SPAWN_Y))
 		{
 			item->xPos = 2 + rand() % 20;
 			item->yPos = 2 + rand() % 20;
@@ -422,10 +446,17 @@ void SnakeContent::MoveTrap(Trap* trap)
 	trap->xPos = 2 + rand() % 20;
 	trap->yPos = 2 + rand() % 20;
 
+	while (trap->xPos == SPAWN_X && trap->yPos == SPAWN_Y)
+	{
+		trap->xPos = 2 + rand() % 20;
+		trap->yPos = 2 + rand() % 20;
+	}
+
 	// 아이템과 충돌 체크
 	for (itemListIter = itemList.begin(); itemListIter != itemList.end(); itemListIter++)
 	{
-		while (trap->xPos == (*itemListIter)->xPos && trap->yPos == (*itemListIter)->yPos)
+		while ((trap->xPos == (*itemListIter)->xPos && trap->yPos == (*itemListIter)->yPos) ||
+			(trap->xPos == SPAWN_X && trap->yPos == SPAWN_Y))
 		{
 			trap->xPos = 2 + rand() % 20;
 			trap->yPos = 2 + rand() % 20;

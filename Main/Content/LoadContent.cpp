@@ -68,7 +68,8 @@ void LoadContent::OnUpdate()
 			rotateLeft *= -1;
 		}
 
-		if (ballRight.xPos == ballLeft.xPos && ballRight.yPos == ballLeft.yPos)
+		if ((ballRight.xPos == ballLeft.xPos && ballRight.yPos == ballLeft.yPos) ||
+			ballRight.yPos > ballLeft.yPos)
 			SCENE->ChangeContent((int)_ECONTENT::TITLE);
 
 	}
