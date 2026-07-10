@@ -9,6 +9,9 @@
 #include "Content/DinoContent.h"
 #include "Content/RoadFighterContent.h"
 #include "Content/MazeContent.h"
+#include "Content/GalagaContent.h"
+#include "Content/BattleCityContent.h"
+#include "Content/PacManContent.h"
 
 void MainContent::OnInit()
 {
@@ -21,9 +24,12 @@ void MainContent::OnInit()
 	SCENE->AddContent((int)_ECONTENT::DINO, new DinoContent());
 	SCENE->AddContent((int)_ECONTENT::ROADFIGHTER, new RoadFighterContent());
 	SCENE->AddContent((int)_ECONTENT::MAZE, new MazeContent());
+	SCENE->AddContent((int)_ECONTENT::GALAGA, new GalagaContent());
+	SCENE->AddContent((int)_ECONTENT::BATTLECITY, new BattleCityContent());
+	SCENE->AddContent((int)_ECONTENT::PACMAN, new PacManContent());
 
 	// ÄÜÅÙÃ÷¸¦ º¯°æÇÑ´Ù.
-	SCENE->ChangeContent((int)_ECONTENT::MAZE);
+	SCENE->ChangeContent((int)_ECONTENT::PACMAN);
 }
 
 void MainContent::OnUpdate()
