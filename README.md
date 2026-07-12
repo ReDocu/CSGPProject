@@ -23,7 +23,7 @@
 - **콘솔의 제약을 정공법으로** — 더블 버퍼링, 전각 문자 2칸, 타이머 해상도(10~16ms), CP949 인코딩 같은 콘솔 특유의 문제를 회피하지 않고 다룹니다.
 - **하나의 게임 = 하나의 학습 단계** — 자료구조 → 알고리즘 → 물리 → 시스템 → 메모리·성능 → 종합으로 난이도가 단조 증가합니다.
 
-> 상세 설계는 **[기술 문서 (CSGP Architecture, PDF)](Docs/CSGP_Architecture.pdf)** 를 참고하세요.
+> 상세 설계는 **[기술 문서 (CSGP Architecture)](Release_Docs/CSGP_Architecture.md)** 를 참고하세요.
 
 ---
 
@@ -94,7 +94,7 @@ Main/                   ── 콘텐츠 계층 (게임) ───────�
 - **로딩 시퀀스**: `ChangeContentWithLoading(load, next)` — 목적지를 예약(Reserve)해 두고 로딩 씬을 거친 뒤 예약된 씬으로 진입
 - **좌표계**: 논리 해상도 40×25. 전각 1글자 = 콘솔 2칸이므로 **출력 시 x×2** (게임 로직은 논리 좌표로만 계산)
 
-> 매니저·씬·생명주기·콘솔 제약에 대한 상세는 **[기술 문서(PDF)](Docs/CSGP_Architecture.pdf)** 에 정리되어 있습니다.
+> 매니저·씬·생명주기·콘솔 제약에 대한 상세는 **[기술 문서](Release_Docs/CSGP_Architecture.md)** 에 정리되어 있습니다.
 
 ---
 
@@ -132,7 +132,7 @@ $msbuild = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere
 
 CSGP는 두 부로 나뉜 학습 트랙을 따라 성장합니다. 전체 지도는 **[study_index.md](study_index.md)** 참고.
 
-- **1부 — C 기본 문법** : 표준 C만으로 만드는 턴제 경영 시뮬레이션 **[Game Dev Tycoon](Study/Tycoon/)** (변수 → 파일 분리까지 15단계)
+- **1부 — C 기본 문법** : 표준 C만으로 만든 턴제 경영 시뮬레이션 **Game Dev Tycoon** (변수 → 파일 분리까지 15단계) — 지금은 게임 씬 `TycoonContent`로 이식되어 게임 팩에 수록
 - **2부 — C++ 콘솔 게임 팩** : 엔진(0단계) → Snake → Tetris → Dino → Road Fighter → Galaga → Maze → Battle City ([커리큘럼 상세](Docs/CURRICULUM.md))
 
 ---
@@ -141,7 +141,7 @@ CSGP는 두 부로 나뉜 학습 트랙을 따라 성장합니다. 전체 지도
 
 | 문서 | 내용 |
 |---|---|
-| **[Docs/CSGP_Architecture.pdf](Docs/CSGP_Architecture.pdf)** | 프레임워크 기술 문서 (아키텍처·매니저·콘솔 제약) |
+| **[Release_Docs/CSGP_Architecture.md](Release_Docs/CSGP_Architecture.md)** | 프레임워크 기술 문서 (아키텍처·매니저·콘솔 제약) |
 | [study_index.md](study_index.md) | 학습 전체 목차 (1부 C 문법 + 2부 게임 팩) |
 | [Docs/CURRICULUM.md](Docs/CURRICULUM.md) | 2부 게임 7종 단계별 학습 지도 |
 | [Docs/*_GDD.md](Docs/) | 게임별 설계 문서(GDD) |
@@ -151,7 +151,7 @@ CSGP는 두 부로 나뉜 학습 트랙을 따라 성장합니다. 전체 지도
 
 ## 주의: 소스 인코딩
 
-모든 `.cpp`/`.h` 소스는 **CP949(EUC-KR)** 로 저장되어 있습니다. 한글 주석과 전각 문자열 리터럴이 콘솔에 그대로 출력되기 때문입니다. 에디터로 수정할 때는 **반드시 CP949로 저장**해야 하며, UTF-8로 저장하면 한글이 깨집니다. 자세한 규칙은 [CLAUDE.md](CLAUDE.md) 참고.
+모든 `.cpp`/`.h` 소스는 **CP949(EUC-KR)** 로 저장되어 있습니다. 한글 주석과 전각 문자열 리터럴이 콘솔에 그대로 출력되기 때문입니다. 에디터로 수정할 때는 **반드시 CP949로 저장**해야 하며, UTF-8로 저장하면 한글이 깨집니다. 자세한 내용은 기술 문서의 인코딩 절 **[Release_Docs/CSGP_Architecture.md](Release_Docs/CSGP_Architecture.md)** 을 참고하세요.
 
 ---
 
