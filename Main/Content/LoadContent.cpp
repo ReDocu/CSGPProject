@@ -1,17 +1,38 @@
 #include "LoadContent.h"
 
+// destination name for the loading banner
+static const char* SceneName(int key)
+{
+	switch ((_ECONTENT)key)
+	{
+	case _ECONTENT::SNAKE:       return "S N A K E";
+	case _ECONTENT::TETRIS:      return "T E T R I S";
+	case _ECONTENT::DINO:        return "D I N O";
+	case _ECONTENT::ROADFIGHTER: return "R O A D  F I G H T E R";
+	case _ECONTENT::MAZE:        return "M A Z E";
+	case _ECONTENT::GALAGA:      return "G A L A G A";
+	case _ECONTENT::BATTLECITY:  return "B A T T L E  C I T Y";
+	case _ECONTENT::PACMAN:      return "P A C - M A N";
+	case _ECONTENT::TYCOON:      return "G A M E  D E V  T Y C O O N";
+	default:                     return "M A I N  M E N U";
+	}
+}
+
 void LoadContent::OnInit()
 {
 	ballRight.xPos = 1;					// 1
 	ballRight.yPos = 1;					// 1
-	ballRight.shape = "ï¿½ï¿½";
+	ballRight.shape = "¡Ü";
 
 	ballLeft.xPos = GAME_SIZE_X - 1;	// 39
 	ballLeft.yPos = GAME_SIZE_Y - 2;	// 23
-	ballLeft.shape = "ï¿½ï¿½";
+	ballLeft.shape = "¡Ü";
 
 	rotateRight = 1;
 	rotateLeft = -1;
+
+	// banner: where are we going after loading?
+	targetName = SceneName(SCENE->PeekReservedContent());
 
 	for (int y = 0; y < GAME_SIZE_Y; y++)
 	{
@@ -30,7 +51,15 @@ void LoadContent::OnRelease()
 
 void LoadContent::OnUpdate()
 {
-	if (TIMER->GetTickTimer(0.0001f)) {
+	// ESC: skip the loading animation (consume so main loop does not quit)
+	if (INPUT->OnKeyDown(VK_ESCAPE))
+	{
+		int next = SCENE->PopReservedContent();
+		SCENE->ChangeContent(next >= 0 ? next : (int)_ECONTENT::TITLE);
+		return;
+	}
+
+	for (int step = 0; step < 8; step++) {
 
 		curtain[ballRight.yPos][ballRight.xPos] = false;
 		curtain[ballLeft.yPos][ballLeft.xPos] = false;
@@ -38,7 +67,7 @@ void LoadContent::OnUpdate()
 		ballRight.xPos += rotateRight;
 		ballLeft.xPos += rotateLeft;
 
-		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		// À§ÂÊ °ø
 		if (ballRight.xPos > GAME_SIZE_X - 1)
 		{
 			ballRight.xPos = GAME_SIZE_X - 1;
@@ -53,7 +82,7 @@ void LoadContent::OnUpdate()
 			rotateRight *= -1;
 		}
 
-		// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½
+		// ¾Æ·¡ÂÊ °ø
 		if (ballLeft.xPos > GAME_SIZE_X - 1)
 		{
 			ballLeft.xPos = GAME_SIZE_X - 1;
@@ -70,27 +99,31 @@ void LoadContent::OnUpdate()
 
 		if ((ballRight.xPos == ballLeft.xPos && ballRight.yPos == ballLeft.yPos) ||
 			ballRight.yPos > ballLeft.yPos)
-			SCENE->ChangeContent((int)_ECONTENT::TITLE);
+		{
+			int next = SCENE->PopReservedContent();
+			SCENE->ChangeContent(next >= 0 ? next : (int)_ECONTENT::TITLE);
+			return;
+		}
 
 	}
 }
 
 void LoadContent::OnRender()
 {
-
-	SCREEN->OnDraw(3, 3, "ï¿½Îµï¿½SCENE ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
-	SCREEN->OnDraw(20, 20, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½Ñ¾î°¥ï¿½Å¿ï¿½ï¿½ï¿½");
-
 	for (int y = 0; y < GAME_SIZE_Y; y++) 
 	{
 		for (int x = 0 ;x < GAME_SIZE_X;x++)
 		{
 			if (curtain[y][x] == true)
-				SCREEN->OnDrawColor(x * 2, y, "ï¿½ï¿½", SKYBLUE);
+				SCREEN->OnDrawColor(x * 2, y, "¡á", SKYBLUE);
 		}
 	}
 
 
 	SCREEN->OnDrawColor(ballRight.xPos * 2, ballRight.yPos, ballRight.shape.c_str(), PURPLE);
 	SCREEN->OnDrawColor(ballLeft.xPos * 2, ballLeft.yPos, ballLeft.shape.c_str(), PURPLE);
+
+	// loading banner
+	SCREEN->OnDrawColor(30, 10, "N O W   L O A D I N G", GRAY);
+	SCREEN->OnDrawColor((short)(40 - (int)targetName.size() / 2), 13, targetName.c_str(), YELLOW);
 }

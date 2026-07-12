@@ -134,28 +134,45 @@ void PacManContent::ResetActors()
 	modeTimer = SCATTER_FRAMES;
 	chaseMode = false;
 
-	// 0=Blinky(출발 시 하우스 밖), 1=Pinky, 2=Inky, 3=Clyde
-	ghosts[0] = { _EGhost::BLINKY, _EGhostState::SCATTER, EXIT_X, EXIT_Y, _EDir::LEFT,  9, 7, MAZE_W - 2, 1,          0 };
-	ghosts[1] = { _EGhost::PINKY,  _EGhostState::HOUSE,   9, 9, _EDir::UP,    9, 9, 1, 1,                    60 };
-	ghosts[2] = { _EGhost::INKY,   _EGhostState::HOUSE,   8, 9, _EDir::UP,    8, 9, MAZE_W - 2, MAZE_H - 2,  180 };
-	ghosts[3] = { _EGhost::CLYDE,  _EGhostState::HOUSE,  10, 9, _EDir::UP,   10, 9, 1, MAZE_H - 2,           360 };
+	// all four ghosts start OUTSIDE the house, active from the start
+	ghosts[0] = { _EGhost::BLINKY, _EGhostState::SCATTER, 9, 7, _EDir::RIGHT, 9, 7, MAZE_W - 2, 1, 0 };
+	ghosts[1] = { _EGhost::PINKY, _EGhostState::SCATTER, 8, 7, _EDir::LEFT, 8, 7, 1, 1, 0 };
+	ghosts[2] = { _EGhost::INKY, _EGhostState::SCATTER, 10, 7, _EDir::RIGHT, 10, 7, MAZE_W - 2, MAZE_H - 2, 0 };
+	ghosts[3] = { _EGhost::CLYDE, _EGhostState::SCATTER, 7, 7, _EDir::LEFT, 7, 7, 1, MAZE_H - 2, 0 };
 }
 
 // ============================================================================
 // 타이틀
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void PacManContent::OnTitleUpdate()
 {
-	if (INPUT->OnKeyDown(VK_SPACE) || INPUT->OnKeyDown(VK_RETURN))
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
+	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		StartGame();
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			StartGame();
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void PacManContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(28, 6, "P A C - M A N", YELLOW);
+	SCREEN->OnDrawColor(5, 3, "■■■■■      ■      ■■■■■  ■      ■      ■      ■      ■", YELLOW);
+	SCREEN->OnDrawColor(5, 4, "■      ■    ■  ■    ■          ■■  ■■    ■  ■    ■    ■■", YELLOW);
+	SCREEN->OnDrawColor(5, 5, "■■■■■  ■■■■■  ■          ■  ■  ■  ■■■■■  ■  ■  ■", YELLOW);
+	SCREEN->OnDrawColor(5, 6, "■          ■      ■  ■          ■      ■  ■      ■  ■■    ■", YELLOW);
+	SCREEN->OnDrawColor(5, 7, "■          ■      ■  ■■■■■  ■      ■  ■      ■  ■      ■", YELLOW);
 
 	SCREEN->OnDrawColor(24 * 2, 10, "▶", YELLOW);
 	SCREEN->OnDrawColor(27 * 2, 10, "Ω", RED);
@@ -164,11 +181,14 @@ void PacManContent::OnTitleRender()
 	SCREEN->OnDrawColor(33 * 2, 10, "Ω", DARKYELLOW);
 
 	if (hiScore > 0)
-		SCREEN->OnDrawColor(30, 13, ("HI  " + Pad(hiScore, 6)).c_str(), GRAY);
+		SCREEN->OnDrawColor(30, 11, ("HI  " + Pad(hiScore, 6)).c_str(), GRAY);
 
-	SCREEN->OnDraw(28, 15, "PRESS SPACE TO START");
-	SCREEN->OnDraw(6, 18, "WASD 이동   P 정지   ESC 종료");
-	SCREEN->OnDraw(4, 19, "펠릿을 모두 먹고 고스트를 피하라");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 13 : 16, "▶", RED);
+	SCREEN->OnDrawColor(32, 13, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 16, "게 임 종 료", BLUE);
+
+	SCREEN->OnDrawColor(16, 19, "WASD: 이동   P: 일시정지   ESC: 타이틀로", GRAY);
+	SCREEN->OnDrawColor(8, 20, "펠릿을 모두 먹으면 클리어 - 파워펠릿(●)을 먹으면 고스트를 반격", GRAY);
 }
 
 // ============================================================================

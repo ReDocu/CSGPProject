@@ -92,26 +92,52 @@ void DinoContent::StartGame()
 // ============================================================================
 // 타이틀 페이즈
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void DinoContent::OnTitleUpdate()
 {
-	if (INPUT->OnKeyDown(VK_SPACE) || INPUT->OnKeyDown(VK_RETURN) || INPUT->OnKeyDown(VK_UP))
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
+	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		StartGame();
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			StartGame();
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void DinoContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(30, 6, "D I N O   R U N", GREEN);
+	SCREEN->OnDrawColor(17, 2, "■■■■    ■■■■■  ■      ■  ■■■■■", GREEN);
+	SCREEN->OnDrawColor(17, 3, "■      ■      ■      ■    ■■  ■      ■", GREEN);
+	SCREEN->OnDrawColor(17, 4, "■      ■      ■      ■  ■  ■  ■      ■", GREEN);
+	SCREEN->OnDrawColor(17, 5, "■      ■      ■      ■■    ■  ■      ■", GREEN);
+	SCREEN->OnDrawColor(17, 6, "■■■■    ■■■■■  ■      ■  ■■■■■", GREEN);
+
+	SCREEN->OnDrawColor(23, 8, "■■■■■  ■      ■  ■      ■", GREEN);
+	SCREEN->OnDrawColor(23, 9, "■      ■  ■      ■  ■    ■■", GREEN);
+	SCREEN->OnDrawColor(23, 10, "■■■■■  ■      ■  ■  ■  ■", GREEN);
+	SCREEN->OnDrawColor(23, 11, "■  ■      ■      ■  ■■    ■", GREEN);
+	SCREEN->OnDrawColor(23, 12, "■    ■■  ■■■■■  ■      ■", GREEN);
 
 	// 데모용 지면 + 서 있는 공룡
 	for (int x = 10; x <= 30; x++)
-		SCREEN->OnDrawColor(x * 2, 14, "■", GRAY);
-	DrawSpriteRows(13, 11, DINO_RUN0, 3, WHITE);
+		SCREEN->OnDrawColor(x * 2, 17, "■", GRAY);
+	DrawSpriteRows(13, 14, DINO_RUN0, 3, WHITE);
 
-	SCREEN->OnDraw(26, 18, "PRESS SPACE TO START");
-	SCREEN->OnDraw(12, 21, "점프: SPACE / 위    숙이기: 아래    일시정지: P    종료: ESC");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 19 : 21, "▶", RED);
+	SCREEN->OnDrawColor(32, 19, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 21, "게 임 종 료", BLUE);
+
+	SCREEN->OnDrawColor(10, 23, "점프: SPACE/위   숙이기: 아래   P: 일시정지   ESC: 타이틀로", GRAY);
 }
 
 // ============================================================================

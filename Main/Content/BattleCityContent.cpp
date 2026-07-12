@@ -334,34 +334,60 @@ bool BattleCityContent::TankAt(int tx, int ty, int skipEnemy) const
 // ============================================================================
 // 타이틀 페이즈
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void BattleCityContent::OnTitleUpdate()
 {
-	if (INPUT->OnKeyDown(VK_SPACE) || INPUT->OnKeyDown(VK_RETURN))
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
+	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		StartGame();
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			StartGame();
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void BattleCityContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(26, 5, "B A T T L E   C I T Y", YELLOW);
+	SCREEN->OnDrawColor(5, 2, "■■■■        ■      ■■■■■  ■■■■■  ■          ■■■■■", YELLOW);
+	SCREEN->OnDrawColor(5, 3, "■      ■    ■  ■        ■          ■      ■          ■", YELLOW);
+	SCREEN->OnDrawColor(5, 4, "■■■■    ■■■■■      ■          ■      ■          ■■■■■", YELLOW);
+	SCREEN->OnDrawColor(5, 5, "■      ■  ■      ■      ■          ■      ■          ■", YELLOW);
+	SCREEN->OnDrawColor(5, 6, "■■■■    ■      ■      ■          ■      ■■■■■  ■■■■■", YELLOW);
+
+	SCREEN->OnDrawColor(17, 8, "■■■■■  ■■■■■  ■■■■■  ■      ■", YELLOW);
+	SCREEN->OnDrawColor(17, 9, "■              ■          ■        ■  ■", YELLOW);
+	SCREEN->OnDrawColor(17, 10, "■              ■          ■          ■", YELLOW);
+	SCREEN->OnDrawColor(17, 11, "■              ■          ■          ■", YELLOW);
+	SCREEN->OnDrawColor(17, 12, "■■■■■  ■■■■■      ■          ■", YELLOW);
 
 	// 장식: 기지와 이를 노리는 적 탱크
-	SCREEN->OnDrawColor(24 * 2, 9, "▼", GRAY);
-	SCREEN->OnDrawColor(27 * 2, 9, "▼", RED);
-	SCREEN->OnDrawColor(30 * 2, 9, "▼", GREEN);
+	SCREEN->OnDrawColor(24 * 2, 14, "▼", GRAY);
+	SCREEN->OnDrawColor(27 * 2, 14, "▼", RED);
+	SCREEN->OnDrawColor(30 * 2, 14, "▼", GREEN);
 	for (int x = 24; x <= 30; x++)
-		SCREEN->OnDrawColor(x * 2, 12, "□", DARKYELLOW);
-	SCREEN->OnDrawColor(27 * 2, 12, "★", YELLOW);
-	SCREEN->OnDrawColor(27 * 2, 11, "▲", YELLOW);
+		SCREEN->OnDrawColor(x * 2, 16, "□", DARKYELLOW);
+	SCREEN->OnDrawColor(27 * 2, 16, "★", YELLOW);
+	SCREEN->OnDrawColor(27 * 2, 15, "▲", YELLOW);
 
 	if (hiScore > 0)
-		SCREEN->OnDrawColor(30, 15, ("HI  " + Pad(hiScore, 6)).c_str(), GRAY);
+		SCREEN->OnDrawColor(4, 14, ("HI  " + Pad(hiScore, 6)).c_str(), GRAY);
 
-	SCREEN->OnDraw(28, 17, "PRESS SPACE TO START");
-	SCREEN->OnDraw(4, 20, "WASD 이동   SPACE 발사   P 정지   ESC 종료");
-	SCREEN->OnDraw(6, 21, "적 탱크를 전멸시키고 기지(★)를 지켜라");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 18 : 20, "▶", RED);
+	SCREEN->OnDrawColor(32, 18, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 20, "게 임 종 료", BLUE);
+
+	SCREEN->OnDrawColor(12, 22, "WASD: 이동   SPACE: 발사   P: 일시정지   ESC: 타이틀로", GRAY);
+	SCREEN->OnDrawColor(12, 23, "적 탱크를 전멸시키고 기지(★)를 지켜라", GRAY);
 }
 
 // ============================================================================

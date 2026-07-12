@@ -79,29 +79,48 @@ void RoadFighterContent::StartGame()
 // ============================================================================
 // 타이틀 페이즈
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void RoadFighterContent::OnTitleUpdate()
 {
-	if (INPUT->OnKeyDown(VK_SPACE) || INPUT->OnKeyDown(VK_RETURN))
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
+	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		StartGame();
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			StartGame();
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void RoadFighterContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(28, 5, "R O A D   F I G H T E R", YELLOW);
+	SCREEN->OnDrawColor(17, 2, "■■■■■  ■■■■■      ■      ■■■■", YELLOW);
+	SCREEN->OnDrawColor(17, 3, "■      ■  ■      ■    ■  ■    ■      ■", YELLOW);
+	SCREEN->OnDrawColor(17, 4, "■■■■■  ■      ■  ■■■■■  ■      ■", YELLOW);
+	SCREEN->OnDrawColor(17, 5, "■  ■      ■      ■  ■      ■  ■      ■", YELLOW);
+	SCREEN->OnDrawColor(17, 6, "■    ■■  ■■■■■  ■      ■  ■■■■", YELLOW);
 
-	// 데모 도로 + 플레이어
-	for (int y = 8; y <= 18; y++)
-	{
-		SCREEN->OnDrawColor(12 * 2, y, "■", DARKGRAY);
-		SCREEN->OnDrawColor(27 * 2, y, "■", DARKGRAY);
-	}
-	DrawSpriteRows(18, 15, PLAYER_SPR, 3, SKYBLUE);
+	SCREEN->OnDrawColor(4, 8, "■■■■■ ■■■ ■■■■■ ■      ■ ■■■■■ ■■■■■ ■■■■■", YELLOW);
+	SCREEN->OnDrawColor(4, 9, "■           ■   ■         ■      ■     ■     ■         ■      ■", YELLOW);
+	SCREEN->OnDrawColor(4, 10, "■■■■     ■   ■  ■■■ ■■■■■     ■     ■■■■■ ■■■■■", YELLOW);
+	SCREEN->OnDrawColor(4, 11, "■           ■   ■      ■ ■      ■     ■     ■         ■  ■", YELLOW);
+	SCREEN->OnDrawColor(4, 12, "■         ■■■ ■■■■■ ■      ■     ■     ■■■■■ ■    ■■", YELLOW);
 
-	SCREEN->OnDraw(30, 20, "PRESS SPACE TO START");
-	SCREEN->OnDraw(10, 22, "좌우: 차선 이동   위/아래: 가속/감속   P: 일시정지   ESC: 종료");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 15 : 18, "▶", RED);
+	SCREEN->OnDrawColor(32, 15, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 18, "게 임 종 료", BLUE);
+
+	SCREEN->OnDrawColor(10, 21, "좌우: 차선 이동   위/아래: 가속/감속   P: 일시정지   ESC: 타이틀로", GRAY);
+	SCREEN->OnDrawColor(10, 22, "◆ 연료   ★ 보너스   충돌 시 목숨 -1, 연료가 떨어지면 실패", GRAY);
 }
 
 // ============================================================================

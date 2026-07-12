@@ -140,18 +140,35 @@ void GalagaContent::SpawnStage(int s)
 // ============================================================================
 // 타이틀 페이즈
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void GalagaContent::OnTitleUpdate()
 {
-	if (INPUT->OnKeyDown(VK_SPACE) || INPUT->OnKeyDown(VK_RETURN))
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
+	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		StartGame();
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			StartGame();
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void GalagaContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(28, 6, "G A L A G A", YELLOW);
+	SCREEN->OnDrawColor(5, 3, "■■■■■      ■      ■              ■      ■■■■■      ■", YELLOW);
+	SCREEN->OnDrawColor(5, 4, "■            ■  ■    ■            ■  ■    ■            ■  ■", YELLOW);
+	SCREEN->OnDrawColor(5, 5, "■  ■■■  ■■■■■  ■          ■■■■■  ■  ■■■  ■■■■■", YELLOW);
+	SCREEN->OnDrawColor(5, 6, "■      ■  ■      ■  ■          ■      ■  ■      ■  ■      ■", YELLOW);
+	SCREEN->OnDrawColor(5, 7, "■■■■■  ■      ■  ■■■■■  ■      ■  ■■■■■  ■      ■", YELLOW);
 
 	// 장식용 적 편대
 	int cols[6] = { RED, RED, GREEN, GREEN, PURPLE, PURPLE };
@@ -164,10 +181,14 @@ void GalagaContent::OnTitleRender()
 	SCREEN->OnDrawColor(19 * 2, 16, "▲", SKYBLUE);
 
 	if (hiScore > 0)
-		SCREEN->OnDrawColor(30, 18, ("HI  " + Pad(hiScore, 6)).c_str(), GRAY);
+		SCREEN->OnDrawColor(30, 15, ("HI  " + Pad(hiScore, 6)).c_str(), GRAY);
 
-	SCREEN->OnDraw(28, 20, "PRESS SPACE TO START");
-	SCREEN->OnDraw(6, 22, "A/D 이동   SPACE 발사   P 정지   ESC 종료");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 18 : 20, "▶", RED);
+	SCREEN->OnDrawColor(32, 18, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 20, "게 임 종 료", BLUE);
+
+	SCREEN->OnDrawColor(14, 22, "A/D: 이동   SPACE: 발사   P: 일시정지   ESC: 타이틀로", GRAY);
+	SCREEN->OnDrawColor(14, 23, "적 편대를 전멸시키면 다음 웨이브로 - 총알은 풀로 재사용된다", GRAY);
 }
 
 // ============================================================================

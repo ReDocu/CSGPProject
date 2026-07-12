@@ -12,6 +12,7 @@
 #include "Content/GalagaContent.h"
 #include "Content/BattleCityContent.h"
 #include "Content/PacManContent.h"
+#include "Content/TycoonContent.h"
 
 void MainContent::OnInit()
 {
@@ -27,20 +28,14 @@ void MainContent::OnInit()
 	SCENE->AddContent((int)_ECONTENT::GALAGA, new GalagaContent());
 	SCENE->AddContent((int)_ECONTENT::BATTLECITY, new BattleCityContent());
 	SCENE->AddContent((int)_ECONTENT::PACMAN, new PacManContent());
+	SCENE->AddContent((int)_ECONTENT::TYCOON, new TycoonContent());
 
 	// 콘텐츠를 변경한다.
-	SCENE->ChangeContent((int)_ECONTENT::PACMAN);
+	SCENE->ChangeContent((int)_ECONTENT::TITLE);
 }
 
 void MainContent::OnUpdate()
 {
-	// 변경을 확인하기 위한 키 입력 
-	//if(INPUT->OnKeyDown('Z'))
-	//	SCENE->ChangeContent((int)_ECONTENT::INTRO);
-	//if(INPUT->OnKeyDown('X'))
-	//	SCENE->ChangeContent((int)_ECONTENT::TETRIS);
-
-
 	// 현재 실행중인 컨텐츠의 업데이트를 불러온다.
 	if (SCENE->GetContent() != nullptr)
 		SCENE->GetContent()->OnUpdate();

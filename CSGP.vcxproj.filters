@@ -69,6 +69,9 @@
     <ClCompile Include="Main\Content\PacManContent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Main\Content\TycoonContent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\singleton.h">
@@ -132,6 +135,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Main\Content\Pool.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Content\TycoonContent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

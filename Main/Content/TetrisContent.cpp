@@ -319,24 +319,43 @@ TetrisContent::Tetromino TetrisContent::GetGhost()
 // ============================================================================
 // 타이틀 페이즈
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void TetrisContent::OnTitleUpdate()
 {
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
 	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		StartGame();
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			StartGame();
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void TetrisContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(32, 7, "T E T R I S", SKYBLUE);
+	SCREEN->OnDrawColor(5, 3, "■■■■■  ■■■■■  ■■■■■  ■■■■■  ■■■■■  ■■■■■", SKYBLUE);
+	SCREEN->OnDrawColor(5, 4, "    ■      ■              ■      ■      ■      ■      ■", SKYBLUE);
+	SCREEN->OnDrawColor(5, 5, "    ■      ■■■■■      ■      ■■■■■      ■      ■■■■■", SKYBLUE);
+	SCREEN->OnDrawColor(5, 6, "    ■      ■              ■      ■  ■          ■              ■", SKYBLUE);
+	SCREEN->OnDrawColor(5, 7, "    ■      ■■■■■      ■      ■    ■■  ■■■■■  ■■■■■", SKYBLUE);
 
-	SCREEN->OnDraw(24, 11, "PRESS ENTER TO START");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 11 : 14, "▶", RED);
+	SCREEN->OnDrawColor(32, 11, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 14, "게 임 종 료", BLUE);
 
-	SCREEN->OnDraw(16, 15, "이동 : 좌우 방향키    회전 : 위 방향키 / Z");
-	SCREEN->OnDraw(16, 16, "소프트드롭 : 아래 방향키    하드드롭 : SPACE");
-	SCREEN->OnDraw(16, 17, "홀드 : C    일시정지 : P    종료 : ESC");
+	SCREEN->OnDrawColor(16, 17, "이동: 좌우 방향키   회전: 위 방향키 / Z", GRAY);
+	SCREEN->OnDrawColor(16, 18, "소프트드롭: 아래   하드드롭: SPACE   홀드: C", GRAY);
+	SCREEN->OnDrawColor(16, 19, "P: 일시정지   ESC: 타이틀로", GRAY);
 }
 
 // ============================================================================

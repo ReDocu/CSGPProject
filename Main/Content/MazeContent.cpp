@@ -634,30 +634,50 @@ void MazeContent::FinishStage()
 // ============================================================================
 // Title
 // ============================================================================
+static int s_titleSelect = 0;	// 0: 게임 시작, 1: 게임 종료
+
 void MazeContent::OnTitleUpdate()
 {
+	if (INPUT->OnKeyDown(VK_UP) || INPUT->OnKeyDown(VK_DOWN))
+		s_titleSelect = 1 - s_titleSelect;
+
 	if (INPUT->OnKeyDown(VK_RETURN))
 	{
-		totalScore = 0;
-		StartStage(0);
-		currentPhase = _EPhase::INGAME;
+		if (s_titleSelect == 0)
+		{
+			totalScore = 0;
+			StartStage(0);
+			currentPhase = _EPhase::INGAME;
+		}
+		else
+		{
+			s_titleSelect = 0;
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
+		}
 	}
 }
 
 void MazeContent::OnTitleRender()
 {
-	SCREEN->OnDrawColor(28, 3, "A L G O   M A Z E", SKYBLUE);
-	SCREEN->OnDraw(22, 5, "Each stage is built by a different algorithm");
+	SCREEN->OnDrawColor(17, 3, "■      ■      ■      ■■■■■  ■■■■■", SKYBLUE);
+	SCREEN->OnDrawColor(17, 4, "■■  ■■    ■  ■          ■    ■", SKYBLUE);
+	SCREEN->OnDrawColor(17, 5, "■  ■  ■  ■■■■■      ■      ■■■■■", SKYBLUE);
+	SCREEN->OnDrawColor(17, 6, "■      ■  ■      ■    ■        ■", SKYBLUE);
+	SCREEN->OnDrawColor(17, 7, "■      ■  ■      ■  ■■■■■  ■■■■■", SKYBLUE);
+	SCREEN->OnDraw(12, 9, "ALGO MAZE - Each stage is built by a different algorithm");
 
-	SCREEN->OnDrawColor(24, 8,  "STAGE 1  Binary Tree      (bias)",       DARKGRAY);
-	SCREEN->OnDrawColor(24, 9,  "STAGE 2  Recursive DFS     (stack)",     DARKBLUE);
-	SCREEN->OnDrawColor(24, 10, "STAGE 3  Randomized Prim   (frontier)",  DARKGREEN);
-	SCREEN->OnDrawColor(24, 11, "STAGE 4  Kruskal           (union-find)",DARKPURPLE);
-	SCREEN->OnDrawColor(24, 12, "STAGE 5  Recursive Division(divide)",    DARKRED);
+	SCREEN->OnDrawColor(24, 11, "STAGE 1  Binary Tree      (bias)",       DARKGRAY);
+	SCREEN->OnDrawColor(24, 12, "STAGE 2  Recursive DFS     (stack)",     DARKBLUE);
+	SCREEN->OnDrawColor(24, 13, "STAGE 3  Randomized Prim   (frontier)",  DARKGREEN);
+	SCREEN->OnDrawColor(24, 14, "STAGE 4  Kruskal           (union-find)",DARKPURPLE);
+	SCREEN->OnDrawColor(24, 15, "STAGE 5  Recursive Division(divide)",    DARKRED);
 
-	SCREEN->OnDraw(26, 15, "Reach the exit. Fewer steps = more stars.");
-	SCREEN->OnDraw(30, 17, "PRESS ENTER TO START");
-	SCREEN->OnDraw(34, 19, "ESC: QUIT");
+	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 17 : 19, "▶", RED);
+	SCREEN->OnDrawColor(32, 17, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 19, "게 임 종 료", BLUE);
+
+	SCREEN->OnDrawColor(8, 21, "이동: 방향키   H: 힌트   F: 자동 풀이   TAB: 풀이 알고리즘   R: 다시 시작", GRAY);
+	SCREEN->OnDrawColor(8, 22, "출구에 도달하라 - 걸음이 적을수록 별이 많다   ESC: 타이틀로", GRAY);
 }
 
 // ============================================================================

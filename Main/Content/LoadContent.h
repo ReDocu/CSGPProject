@@ -21,6 +21,8 @@ class LoadContent : public IContent
 
 	bool curtain[GAME_SIZE_Y][GAME_SIZE_X]{ false };
 
+	std::string targetName;	// destination shown on the loading banner
+
 
 
 public:

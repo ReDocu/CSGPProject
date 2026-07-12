@@ -84,7 +84,7 @@ void SnakeContent::OnTitleUpdate()
 			currentPhase = _EPhase::INGAME;
 			break;
 		case SnakeContent::_ESELECT::EXIT:
-			SCENE->ChangeContent((int)_ECONTENT::TITLE);
+			SCENE->ChangeContentWithLoading((int)_ECONTENT::LOAD, (int)_ECONTENT::TITLE);
 			break;
 		default:
 			break;
@@ -100,20 +100,13 @@ void SnakeContent::OnTitleRender()
 	SCREEN->OnDraw(11, 6, "        ■  ■■    ■  ■      ■  ■  ■      ■        ");
 	SCREEN->OnDraw(11, 7, "■■■■■  ■      ■  ■      ■  ■    ■■  ■■■■■");
 
-	switch (select)
-	{
-	case SnakeContent::_ESELECT::START:
-		SCREEN->OnDrawColor(11, 12, "▶", RED);
-		break;
-	case SnakeContent::_ESELECT::EXIT:
-		SCREEN->OnDrawColor(11, 15, "▶", RED);
-		break;
-	default:
-		break;
-	}
+	SCREEN->OnDrawColor(25, select == _ESELECT::EXIT ? 15 : 12, "▶", RED);
+	SCREEN->OnDrawColor(32, 12, "게 임 시 작", BLUE);
+	SCREEN->OnDrawColor(32, 15, "게 임 종 료", BLUE);
 
-	SCREEN->OnDrawColor(18, 12, "게 임 시 작", BLUE);
-	SCREEN->OnDrawColor(18, 15, "게 임 종 료", BLUE);
+	SCREEN->OnDrawColor(12, 19, "방향키: 이동   SPACE: 타이틀로   ESC: 종료", GRAY);
+	SCREEN->OnDrawColor(12, 20, "★ 아이템: 점수 +10, 몸 +1   ♠ 트랩·벽·자기 몸: 생명 -1", GRAY);
+	SCREEN->OnDrawColor(12, 21, "□ 터널: 반대편으로 순간이동   생명이 0이 되면 타이틀로", GRAY);
 }
 
 void SnakeContent::OnInGameUpdate()

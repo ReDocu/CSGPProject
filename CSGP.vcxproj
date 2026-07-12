@@ -145,6 +145,7 @@
     <ClCompile Include="Main\Content\GalagaContent.cpp" />
     <ClCompile Include="Main\Content\BattleCityContent.cpp" />
     <ClCompile Include="Main\Content\PacManContent.cpp" />
+    <ClCompile Include="Main\Content\TycoonContent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Main\Content\GalagaContent.h" />
     <ClInclude Include="Main\Content\BattleCityContent.h" />
     <ClInclude Include="Main\Content\PacManContent.h" />
+    <ClInclude Include="Main\Content\TycoonContent.h" />
     <ClInclude Include="Main\Content\Pool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

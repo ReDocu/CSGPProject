@@ -28,6 +28,12 @@ int main() {
 			break;
 		}
 
+		// title menu EXIT -> quit
+		if (SCENE->IsQuitRequested())
+		{
+			break;
+		}
+
 		// Render ³»¿ë
 		main->OnRender();
 

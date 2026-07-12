@@ -52,5 +52,6 @@ enum class _ECONTENT {
 	MAZE,
 	GALAGA,
 	BATTLECITY,
-	PACMAN
+	PACMAN,
+	TYCOON
 };
