@@ -72,6 +72,12 @@
     <ClCompile Include="Main\Content\TycoonContent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWork\UI\TextUtil.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWork\Render\RenderUtil.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\singleton.h">
@@ -134,10 +140,19 @@
     <ClInclude Include="Main\Content\PacManContent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Content\Pool.h">
+    <ClInclude Include="FrameWork\Object\Pool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Main\Content\TycoonContent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWork\UI\TextUtil.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWork\Render\Glyph.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWork\Render\RenderUtil.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

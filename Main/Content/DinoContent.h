@@ -83,5 +83,5 @@ private:
 	void DrawScore();
 
 	int  ForeColor() const;	// foreground color by day/night
-	void DrawSpriteRows(int leftX, int topY, const char* const rows[], int h, int color);
+	// DrawSpriteRows moved to FrameWork/Render/RenderUtil.h
 };

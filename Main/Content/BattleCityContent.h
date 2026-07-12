@@ -1,6 +1,6 @@
 #pragma once
 #include "Interface/IGameContent.h"
-#include "Pool.h"
+#include "../../FrameWork/Object/Pool.h"
 
 // ============================================================================
 // Console BATTLE CITY - top-view tank action on the CSGP framework.

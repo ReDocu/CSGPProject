@@ -77,5 +77,5 @@ private:
 	void DrawHUD();
 
 	void DrawBlock(int left, int top, int w, int h, int color);				// solid vehicle
-	void DrawSpriteRows(int leftX, int topY, const char* const rows[], int h, int color);
+	// DrawSpriteRows moved to FrameWork/Render/RenderUtil.h
 };

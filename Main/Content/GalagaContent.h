@@ -1,6 +1,6 @@
 #pragma once
 #include "Interface/IGameContent.h"
-#include "Pool.h"
+#include "../../FrameWork/Object/Pool.h"
 
 // ============================================================================
 // Console GALAGA - shooting arcade on the CSGP framework (IGameContent phases).

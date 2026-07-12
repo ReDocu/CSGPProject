@@ -1,5 +1,6 @@
 #include "DinoContent.h"
 #include "../../framework.h"
+#include "../../FrameWork/Render/RenderUtil.h"
 
 // ============================================================================
 // 튜닝 상수 (칸/프레임 단위). 실제 플레이하며 조정한다.
@@ -131,7 +132,7 @@ void DinoContent::OnTitleRender()
 	// 데모용 지면 + 서 있는 공룡
 	for (int x = 10; x <= 30; x++)
 		SCREEN->OnDrawColor(x * 2, 17, "■", GRAY);
-	DrawSpriteRows(13, 14, DINO_RUN0, 3, WHITE);
+	RenderUtil::DrawSpriteRows(13, 14, DINO_RUN0, 3, WHITE);
 
 	SCREEN->OnDrawColor(25, s_titleSelect == 0 ? 19 : 21, "▶", RED);
 	SCREEN->OnDrawColor(32, 19, "게 임 시 작", BLUE);
@@ -406,18 +407,7 @@ int DinoContent::ForeColor() const
 	return (nightPhase == 1) ? DARKGRAY : GRAY;
 }
 
-void DinoContent::DrawSpriteRows(int leftX, int topY, const char* const rows[], int h, int color)
-{
-	for (int r = 0; r < h; r++)
-	{
-		const char* row = rows[r];
-		for (int c = 0; row[c] != '\0'; c++)
-		{
-			if (row[c] != ' ')
-				SCREEN->OnDrawColor((leftX + c) * 2, topY + r, "■", color);
-		}
-	}
-}
+// DrawSpriteRows moved to FrameWork/Render/RenderUtil.h
 
 void DinoContent::DrawDino()
 {
@@ -425,13 +415,13 @@ void DinoContent::DrawDino()
 	int dinoColor = (nightPhase == 1) ? GRAY : WHITE;
 
 	if (dinoState == _EDinoState::DUCK)
-		DrawSpriteRows(DINO_X, footY - 1, DINO_DUCK, 2, dinoColor);
+		RenderUtil::DrawSpriteRows(DINO_X, footY - 1, DINO_DUCK, 2, dinoColor);
 	else if (dinoState == _EDinoState::JUMP)
-		DrawSpriteRows(DINO_X, footY - 2, DINO_JUMP, 3, dinoColor);
+		RenderUtil::DrawSpriteRows(DINO_X, footY - 2, DINO_JUMP, 3, dinoColor);
 	else if (dinoState == _EDinoState::DEAD)
-		DrawSpriteRows(DINO_X, footY - 2, DINO_DEAD, 3, dinoColor);
+		RenderUtil::DrawSpriteRows(DINO_X, footY - 2, DINO_DEAD, 3, dinoColor);
 	else
-		DrawSpriteRows(DINO_X, footY - 2, legFrame ? DINO_RUN1 : DINO_RUN0, 3, dinoColor);
+		RenderUtil::DrawSpriteRows(DINO_X, footY - 2, legFrame ? DINO_RUN1 : DINO_RUN0, 3, dinoColor);
 }
 
 void DinoContent::DrawObstacle(const Obstacle& o)
@@ -441,13 +431,13 @@ void DinoContent::DrawObstacle(const Obstacle& o)
 	switch (o.type)
 	{
 	case _EObstacle::CACTUS_SMALL:
-		DrawSpriteRows(left, o.topY, CACTUS_S, 2, (nightPhase == 1) ? DARKGREEN : GREEN);
+		RenderUtil::DrawSpriteRows(left, o.topY, CACTUS_S, 2, (nightPhase == 1) ? DARKGREEN : GREEN);
 		break;
 	case _EObstacle::CACTUS_LARGE:
-		DrawSpriteRows(left, o.topY, CACTUS_L, 3, (nightPhase == 1) ? DARKGREEN : GREEN);
+		RenderUtil::DrawSpriteRows(left, o.topY, CACTUS_L, 3, (nightPhase == 1) ? DARKGREEN : GREEN);
 		break;
 	default:	// 익룡
-		DrawSpriteRows(left, o.topY, wingFrame ? PTERO_B : PTERO_A, 2, ForeColor());
+		RenderUtil::DrawSpriteRows(left, o.topY, wingFrame ? PTERO_B : PTERO_A, 2, ForeColor());
 		break;
 	}
 }

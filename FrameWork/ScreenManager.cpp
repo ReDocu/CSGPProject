@@ -131,3 +131,8 @@ void ScreenManager::SetColor(unsigned short color, unsigned short bgColor)
 
 	SetConsoleTextAttribute(hBuffer[nScreenIndex], ((bgColor & 0xf) << 4) | (color & 0xf));
 }
+
+void ScreenManager::DrawCell(short lx, short y, const char* glyph, unsigned short color, unsigned short bgColor)
+{
+	OnDrawColor(lx * 2, y, glyph, color, bgColor);
+}

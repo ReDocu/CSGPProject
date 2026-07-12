@@ -36,7 +36,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -49,7 +49,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -90,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +137,8 @@
     <ClCompile Include="FrameWork\ScreenManager.cpp" />
     <ClCompile Include="FrameWork\TimerManager.cpp" />
     <ClCompile Include="FrameWork\SceneManager.cpp" />
+    <ClCompile Include="FrameWork\UI\TextUtil.cpp" />
+    <ClCompile Include="FrameWork\Render\RenderUtil.cpp" />
     <ClCompile Include="Main\MainContent.cpp" />
     <ClCompile Include="Main\Content\TitleContent.cpp" />
     <ClCompile Include="Main\Content\SnakeContent.cpp" />
@@ -169,7 +173,10 @@
     <ClInclude Include="Main\Content\BattleCityContent.h" />
     <ClInclude Include="Main\Content\PacManContent.h" />
     <ClInclude Include="Main\Content\TycoonContent.h" />
-    <ClInclude Include="Main\Content\Pool.h" />
+    <ClInclude Include="FrameWork\Object\Pool.h" />
+    <ClInclude Include="FrameWork\UI\TextUtil.h" />
+    <ClInclude Include="FrameWork\Render\Glyph.h" />
+    <ClInclude Include="FrameWork\Render\RenderUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

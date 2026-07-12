@@ -1,5 +1,7 @@
 #include "GalagaContent.h"
 #include "../../framework.h"
+#include "../../FrameWork/UI/TextUtil.h"
+using TextUtil::Pad;
 
 // ============================================================================
 // 튜닝 상수 (실제 플레이하며 조정)
@@ -12,13 +14,7 @@ static const float FX_TICK       = 0.06f;	// 폭발 애니 프레임 간격(초)
 static const int   INV_FRAMES    = 90;		// 피격 후 무적 프레임(약 1.5초)
 
 // zero-pad 문자열
-static std::string Pad(int v, int width)
-{
-	std::string s = std::to_string(v);
-	while ((int)s.size() < width)
-		s = "0" + s;
-	return s;
-}
+// Pad(): moved to FrameWork/UI/TextUtil.h
 
 // ============================================================================
 // 생명주기

@@ -1,5 +1,8 @@
 #include "RoadFighterContent.h"
 #include "../../framework.h"
+#include "../../FrameWork/Render/RenderUtil.h"
+#include "../../FrameWork/UI/TextUtil.h"
+using TextUtil::Pad;
 
 // ============================================================================
 // 튜닝 상수 (실제 플레이하며 조정)
@@ -14,13 +17,7 @@ static const float FUEL_DRAIN  = 0.035f;	// 연료 소모(프레임당, 저속 기준)
 static const char* PLAYER_SPR[3] = { " X ", "XXX", " X " };	// 플레이어 십자 차량
 
 // 8자리(또는 지정 폭) zero-pad 문자열
-static std::string Pad(int v, int width)
-{
-	std::string s = std::to_string(v);
-	while ((int)s.size() < width)
-		s = "0" + s;
-	return s;
-}
+// Pad(): moved to FrameWork/UI/TextUtil.h
 
 // ============================================================================
 // 생명주기
@@ -494,7 +491,7 @@ void RoadFighterContent::DrawPlayer()
 		return;
 
 	int cx = LaneCenterX(playerLane);
-	DrawSpriteRows(cx - 1, PLAYER_Y - 2, PLAYER_SPR, 3, SKYBLUE);
+	RenderUtil::DrawSpriteRows(cx - 1, PLAYER_Y - 2, PLAYER_SPR, 3, SKYBLUE);
 }
 
 void RoadFighterContent::DrawHUD()
@@ -544,15 +541,4 @@ void RoadFighterContent::DrawBlock(int left, int top, int w, int h, int color)
 	}
 }
 
-void RoadFighterContent::DrawSpriteRows(int leftX, int topY, const char* const rows[], int h, int color)
-{
-	for (int r = 0; r < h; r++)
-	{
-		const char* row = rows[r];
-		for (int c = 0; row[c] != '\0'; c++)
-		{
-			if (row[c] != ' ')
-				SCREEN->OnDrawColor((leftX + c) * 2, topY + r, "■", color);
-		}
-	}
-}
+// DrawSpriteRows moved to FrameWork/Render/RenderUtil.h

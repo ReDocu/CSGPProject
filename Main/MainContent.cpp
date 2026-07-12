@@ -1,5 +1,6 @@
 #include "MainContent.h"
 #include "../framework.h"
+#include "../FrameWork/Render/RenderUtil.h"
 
 #include "Content/IntroContent.h"
 #include "Content/TitleContent.h"
@@ -49,14 +50,7 @@ void MainContent::OnRender()
 		SCENE->GetContent()->OnRender();
 
 	// ¹è°æ
-	for (short y = 0; y < GAME_SIZE_Y; y++)
-	{
-		for (short x = 0; x < GAME_SIZE_X; x++)
-		{
-			if (x == 0 || y == 0 || x == GAME_SIZE_X - 1 || y == GAME_SIZE_Y - 1)
-				SCREEN->OnDrawColor(x * 2, y, "¡á", GRAY);
-		}
-	}
+	RenderUtil::DrawBorder(GRAY);
 }
 
 void MainContent::OnRelease()

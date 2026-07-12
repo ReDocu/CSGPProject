@@ -1,5 +1,7 @@
 #include "TycoonContent.h"
 #include "../../framework.h"
+#include "../../FrameWork/UI/TextUtil.h"
+#include "../../FrameWork/Render/RenderUtil.h"
 #include <cstdio>
 #include <cstring>
 
@@ -792,18 +794,7 @@ void TycoonContent::DrawMenuItem(short x, short y, const char* text, bool select
 
 void TycoonContent::DrawGauge(short x, short y, int val, int maxv, int width)
 {
-	char buf[64];
-	int fill = (maxv > 0) ? val * width / maxv : 0;
-	if (fill > width) fill = width;
-	if (fill < 0) fill = 0;
-
-	int o = 0;
-	buf[o++] = '[';
-	for (int i = 0; i < width; i++)
-		buf[o++] = (i < fill) ? '#' : '-';
-	buf[o++] = ']';
-	buf[o] = '\0';
-	SCREEN->OnDrawColor(x, y, buf, GREEN);
+	RenderUtil::DrawGauge(x, y, val, maxv, width);
 }
 
 void TycoonContent::RenderMain()
@@ -1111,21 +1102,7 @@ void TycoonContent::RenderEnding()
 // ===== À¯Æ¿ =====
 std::string TycoonContent::MoneyText(int v) const
 {
-	char digits[16];
-	char out[24];
-	int neg = 0;
-	if (v < 0) { neg = 1; v = -v; }
-	snprintf(digits, sizeof(digits), "%d", v);
-	int n = (int)strlen(digits);
-	int o = 0;
-	for (int i = 0; i < n; i++)
-	{
-		if (i > 0 && (n - i) % 3 == 0)
-			out[o++] = ',';
-		out[o++] = digits[i];
-	}
-	out[o] = '\0';
-	return std::string(neg ? "-" : "") + out;
+	return TextUtil::Comma(v);
 }
 
 std::string TycoonContent::MakeTitle() const

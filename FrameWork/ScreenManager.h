@@ -21,6 +21,9 @@ public:
 	void OnDraw(short x, short y, const char* msg);
 	void OnDrawColor(short x, short y, const char* msg, unsigned short color, unsigned short bgColor = 255);
 
+	// logical-coordinate draw: applies the full-width x*2 conversion for you
+	void DrawCell(short lx, short y, const char* glyph, unsigned short color, unsigned short bgColor = 255);
+
 
 	// 더블버퍼링
 	void CreateBuffer();		// 버퍼(스크린)를 생성한다.

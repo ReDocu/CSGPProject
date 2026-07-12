@@ -1,5 +1,7 @@
 #include "BattleCityContent.h"
 #include "../../framework.h"
+#include "../../FrameWork/UI/TextUtil.h"
+using TextUtil::Pad;
 
 // ============================================================================
 // 튜닝 상수 (실제 플레이하며 조정). GetTickTimer 키는 서로 다른 값이어야 한다.
@@ -20,13 +22,7 @@ static const int   HELMET_FRAMES  = 300;	// 헬멧 무적
 static const int   FREEZE_FRAMES  = 360;	// 시계(적 정지)
 static const int   SHIELD_FRAMES  = 600;	// 삽(기지 보호)
 
-static std::string Pad(int v, int width)
-{
-	std::string s = std::to_string(v);
-	while ((int)s.size() < width)
-		s = "0" + s;
-	return s;
-}
+// Pad(): moved to FrameWork/UI/TextUtil.h
 
 // ============================================================================
 // 생명주기
