@@ -313,16 +313,15 @@ void ChangeContentWithLoading(int loadKey, int key) {
 
 | 단계 | 게임 | 처음 도입하는 핵심 기술 |
 |:---:|------|--------------------------|
-| 1 | Snake | 동적 자료구조(vector+포인터), 충돌, 방향 입력, 상태머신 |
-| 2 | Tetris | 2D 그리드, SRS 회전/월킥, 라인 클리어, 7-bag, DAS |
-| 3 | Dino | 물리(중력/점프), 월드 스크롤, 절차적 스폰, AABB, 스프라이트 |
-| 4 | Road Fighter | 엔티티 시스템(이종 집합), 리소스 관리, 무적 상태, 시간 기반 스테이지 |
-| 5 | Galaga | 오브젝트 풀링(`Pool<T,N>`), 대량 오브젝트 |
-| 6 | Maze | 맵 생성 5종 + 경로탐색 4종, union-find, 분할정복 |
-| 7 | Battle City | 맵 생성 + 풀링 결합, 파괴 지형, 적 AI (종합 캡스톤) |
-| 8 | Pac-Man | 성격별 타게팅 AI, 유한상태기계(FSM) |
-
-여기에 더해, C 기본 문법 학습용으로 만든 턴제 경영 시뮬레이션 **Game Dev Tycoon**을 `IGameContent` 씬으로 이식해 함께 수록했다. 게임 외에 허브(`TitleContent`)·인트로(`IntroContent`)·로딩(`LoadContent`) 씬이 있다.
+| 1 | Game Dev Tycoon | C 문법 학습용을 씬으로 이식
+| 2 | Snake | 동적 자료구조(vector+포인터), 충돌, 방향 입력, 상태머신 |
+| 3 | Tetris | 2D 그리드, SRS 회전/월킥, 라인 클리어, 7-bag, DAS |
+| 4 | Dino | 물리(중력/점프), 월드 스크롤, 절차적 스폰, AABB, 스프라이트 |
+| 5 | Road Fighter | 엔티티 시스템(이종 집합), 리소스 관리, 무적 상태, 시간 기반 스테이지 |
+| 6 | Galaga | 오브젝트 풀링(`Pool<T,N>`), 대량 오브젝트 |
+| 7 | Maze | 맵 생성 5종 + 경로탐색 4종, union-find, 분할정복 |
+| 8 | Battle City | 맵 생성 + 풀링 결합, 파괴 지형, 적 AI (종합 캡스톤) |
+| 9 | Pac-Man | 성격별 타게팅 AI, 유한상태기계(FSM) |
 
 ---
 
@@ -358,23 +357,6 @@ Release 구성은 **정적 CRT 링크**(`RuntimeLibrary=MultiThreaded`)로 설�
 2. `framework.h`의 `_ECONTENT`에 enum 값 추가
 3. `MainContent::OnInit()`에서 `SCENE->AddContent((int)_ECONTENT::XXX, new XxxContent());`
 4. `.vcxproj`/`.vcxproj.filters`에 새 파일 등록
-
----
-
-## 11. 향후 개편 로드맵
-
-프레임워크는 중복 코드를 계속 엔진으로 흡수하는 방향으로 개편 중이다. 기능(게임플레이·화면·조작)은 보존하는 행동 보존 리팩터링이며, 단계마다 빌드와 회귀 체크리스트를 통과해야 다음으로 넘어간다.
-
-| 단계 | 내용 | 상태 |
-|:---:|------|:---:|
-| 1 | 무해한 추출 (TextUtil · RenderUtil · Glyph · Pool 이동 · DrawCell) | 완료 |
-| 2 | 타이틀 공통화 (SelectMenu 위젯 + IGameContent 승격) | 예정 |
-| 3 | 인게임 공통화 (ESC / 일시정지 / hiScore 를 베이스로) | 예정 |
-| 4 | 틱 타이머 핸들화 (씬 소유 TickTimer 로 키 충돌 해소) | 예정 |
-| 5 | 폴더 재배치 · 프로젝트 파일 정리 | 예정 |
-
-목표는 "타이틀 메뉴를 고치면 한 파일만, 새 게임은 훅 몇 개만" 이 되는 상태다. 상세는 저장소의 `framework_update.md`에 정리되어 있다.
-
 ---
 
 <div style="text-align:center; color:#888; font-size:9pt; margin-top:2em;">

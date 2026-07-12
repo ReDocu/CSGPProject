@@ -41,3 +41,9 @@
 *.dwo
 .vs/
 CSGP/x64/
+
+# Internal learning docs (kept local, not published)
+Docs/*_GDD.md
+Docs/CURRICULUM.md
+Docs/FUTURE_GAMES.md
+study_index.md

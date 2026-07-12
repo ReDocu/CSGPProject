@@ -31,33 +31,34 @@
 
 <table>
   <tr>
+	<td align="center"><img src="screenshots/01_tycoon.png" width="260"/><br/><b>Game Dev Tycoon</b><br/><sub>경영 시뮬레이션</sub></td>
     <td align="center"><img src="screenshots/02_snake.png" width="260"/><br/><b>Snake</b><br/><sub>동적 자료구조·충돌</sub></td>
     <td align="center"><img src="screenshots/03_tetris.png" width="260"/><br/><b>Tetris</b><br/><sub>그리드·회전 알고리즘</sub></td>
-    <td align="center"><img src="screenshots/04_dino.png" width="260"/><br/><b>Dino</b><br/><sub>물리·월드 스크롤</sub></td>
   </tr>
   <tr>
+	<td align="center"><img src="screenshots/04_dino.png" width="260"/><br/><b>Dino</b><br/><sub>물리·월드 스크롤</sub></td>
     <td align="center"><img src="screenshots/05_roadfighter.png" width="260"/><br/><b>Road Fighter</b><br/><sub>엔티티 시스템·리소스</sub></td>
     <td align="center"><img src="screenshots/07_galaga.png" width="260"/><br/><b>Galaga</b><br/><sub>오브젝트 풀링</sub></td>
-    <td align="center"><img src="screenshots/06_maze.png" width="260"/><br/><b>Maze</b><br/><sub>맵 생성·경로탐색</sub></td>
   </tr>
   <tr>
+	<td align="center"><img src="screenshots/06_maze.png" width="260"/><br/><b>Maze</b><br/><sub>맵 생성·경로탐색</sub></td>
     <td align="center"><img src="screenshots/08_battlecity.png" width="260"/><br/><b>Battle City</b><br/><sub>생성+풀링 종합</sub></td>
     <td align="center"><img src="screenshots/09_pacman.png" width="260"/><br/><b>Pac-Man</b><br/><sub>성격별 AI·FSM</sub></td>
-    <td align="center"><img src="screenshots/01_tycoon.png" width="260"/><br/><b>Game Dev Tycoon</b><br/><sub>경영 시뮬레이션</sub></td>
   </tr>
 </table>
 
 | # | 게임 | 처음 배우는 핵심 기술 | 조작 |
 |:---:|---|---|---|
-| 1 | **Snake** | 동적 자료구조(`vector`+포인터), 충돌, 상태머신 | 방향키 이동 · SPACE 타이틀 |
-| 2 | **Tetris** | 2D 그리드, SRS 회전/월킥, 라인 클리어, 7-bag, DAS | ←→ 이동 · ↑/Z 회전 · SPACE 하드드롭 · C 홀드 |
-| 3 | **Dino** | 물리(중력/점프), 월드 스크롤, AABB, 스프라이트 | SPACE/↑ 점프 · ↓ 숙이기 |
-| 4 | **Road Fighter** | 엔티티 시스템, 리소스(연료/목숨), 시간 기반 스테이지 | ←→ 차선 · ↑↓ 가속/감속 |
-| 5 | **Galaga** | 오브젝트 풀링(`Pool<T,N>`), 대량 오브젝트 | A/D 이동 · SPACE 발사 |
-| 6 | **Maze** | 맵 생성 5종 + 경로탐색 4종, union-find, 분할정복 | 방향키 · H 힌트 · F 자동풀이 · TAB 알고리즘 |
-| 7 | **Battle City** | 맵 생성 + 풀링 결합, 파괴 지형, 적 AI (종합 캡스톤) | WASD 이동 · SPACE 발사 |
-| 8 | **Pac-Man** | 성격별 타게팅 AI, 유한상태기계(FSM) | WASD 이동 |
-| — | **Game Dev Tycoon** | 턴제 경영 시뮬레이션 (C 문법 학습용을 씬으로 이식) | 방향키 · Enter |
+| 1 | **Game Dev Tycoon** | 턴제 경영 시뮬레이션 (C 문법 학습용을 씬으로 이식) | 방향키 · Enter |
+| 2 | **Snake** | 동적 자료구조(`vector`+포인터), 충돌, 상태머신 | 방향키 이동 · SPACE 타이틀 |
+| 3 | **Tetris** | 2D 그리드, SRS 회전/월킥, 라인 클리어, 7-bag, DAS | ←→ 이동 · ↑/Z 회전 · SPACE 하드드롭 · C 홀드 |
+| 4 | **Dino** | 물리(중력/점프), 월드 스크롤, AABB, 스프라이트 | SPACE/↑ 점프 · ↓ 숙이기 |
+| 5 | **Road Fighter** | 엔티티 시스템, 리소스(연료/목숨), 시간 기반 스테이지 | ←→ 차선 · ↑↓ 가속/감속 |
+| 6 | **Galaga** | 오브젝트 풀링(`Pool<T,N>`), 대량 오브젝트 | A/D 이동 · SPACE 발사 |
+| 7 | **Maze** | 맵 생성 5종 + 경로탐색 4종, union-find, 분할정복 | 방향키 · H 힌트 · F 자동풀이 · TAB 알고리즘 |
+| 8 | **Battle City** | 맵 생성 + 풀링 결합, 파괴 지형, 적 AI (종합 캡스톤) | WASD 이동 · SPACE 발사 |
+| 9 | **Pac-Man** | 성격별 타게팅 AI, 유한상태기계(FSM) | WASD 이동 |
+
 
 > 공통: 인게임 `P` 일시정지, `ESC` 타이틀로. 허브에서 방향키/Enter로 게임 선택, 숫자키로 바로 이동, `ESC` 종료. 씬 전환 시 **로딩 화면**을 경유합니다.
 
@@ -130,10 +131,10 @@ $msbuild = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere
 
 ## 학습 커리큘럼
 
-CSGP는 두 부로 나뉜 학습 트랙을 따라 성장합니다. 전체 지도는 **[study_index.md](study_index.md)** 참고.
+CSGP는 두 부로 나뉜 학습 트랙을 따라 성장합니다.
 
 - **1부 — C 기본 문법** : 표준 C만으로 만든 턴제 경영 시뮬레이션 **Game Dev Tycoon** (변수 → 파일 분리까지 15단계) — 지금은 게임 씬 `TycoonContent`로 이식되어 게임 팩에 수록
-- **2부 — C++ 콘솔 게임 팩** : 엔진(0단계) → Snake → Tetris → Dino → Road Fighter → Galaga → Maze → Battle City ([커리큘럼 상세](Docs/CURRICULUM.md))
+- **2부 — C++ 콘솔 게임 팩** : 엔진(0단계) → Snake → Tetris → Dino → Road Fighter → Galaga → Maze → Battle City
 
 ---
 
@@ -142,10 +143,6 @@ CSGP는 두 부로 나뉜 학습 트랙을 따라 성장합니다. 전체 지도
 | 문서 | 내용 |
 |---|---|
 | **[Release_Docs/CSGP_Architecture.md](Release_Docs/CSGP_Architecture.md)** | 프레임워크 기술 문서 (아키텍처·매니저·콘솔 제약) |
-| [study_index.md](study_index.md) | 학습 전체 목차 (1부 C 문법 + 2부 게임 팩) |
-| [Docs/CURRICULUM.md](Docs/CURRICULUM.md) | 2부 게임 7종 단계별 학습 지도 |
-| [Docs/*_GDD.md](Docs/) | 게임별 설계 문서(GDD) |
-| [handover.md](handover.md) | 프로젝트 인수인계 |
 
 ---
 
